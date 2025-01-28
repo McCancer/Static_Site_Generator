@@ -11,3 +11,7 @@ How to run the server for testing purposes:
 cd into the public dir
 run python3 -m http.server (portNumber)
 Connect to the server using your browser using localhost:portnumber
+
+
+Learning Notes:
+Sometimes you need to make a .sh file executable by runing chmod +x filename.sh
