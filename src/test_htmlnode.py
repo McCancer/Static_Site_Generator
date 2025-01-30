@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_propstohtmlTest_one(self):
@@ -55,6 +55,32 @@ class TestHTMLNode(unittest.TestCase):
         return_string = '<a href="https://www.google.com">Click me!</a>'
         self.assertEqual(node.to_html(), return_string)
 
+    def test_parent_tohtml_one(self):
+        node = ParentNode("p",[
+                            LeafNode("b", "Bold text"),
+                            LeafNode(None, "Normal text"),
+                            LeafNode("i", "italic text", props={"Italian": "Latin"}),
+                            LeafNode(None, "Normal text"),
+                            ],)
+        test_string = "<p><b>Bold text</b>Normal text<i Italian=\"Latin\">italic text</i>Normal text</p>"
+        self.assertEqual(node.to_html(), test_string)
+    
+    def test_parent_tohtml_two(self):
+        #Test a parent node in a parent node
+        node1 = ParentNode("p",[LeafNode("i", "Inner1")])
+        node2 = ParentNode("p",[
+                                LeafNode("o","Outer1"),
+                                node1,
+                                LeafNode("o", "Outer2")],
+                                )
+        test_string = "<p><o>Outer1</o><p><i>Inner1</i></p><o>Outer2</o></p>"
+        self.assertEqual(node2.to_html(), test_string)
+
+    def test_parent_tohtml_three(self):
+        #Test a parent node with no children
+        node = ParentNode("p",[]) 
+        test_string = "<p></p>"
+        self.assertEqual(node.to_html(), test_string)
 
 if __name__ == "__main__":
     unittest.main()
