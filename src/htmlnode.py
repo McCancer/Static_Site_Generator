@@ -17,6 +17,8 @@ class HTMLNode():
         raise NotImplementedError()
     
     def props_to_html(self):
+        """
+        """
         if self.props == None: return ""
         return_string = ""
         for key in self.props:
@@ -24,6 +26,8 @@ class HTMLNode():
         return return_string.rstrip()
 
     def __repr__(self):
+        """
+        """
         return_string = "HTML Node \n"
         #Tag
         if self.tag == None: return_string = f"{return_string}Tag: NONE\n"
@@ -41,14 +45,20 @@ class HTMLNode():
 
 class LeafNode(HTMLNode):
     def __init__(self, tag, value, props=None):
+        """
+        """
         super().__init__(tag, value, props=props)
     
     def to_html(self):
+        """
+        """
         if self.value == None: raise ValueError("All leaf nodes must have a value")
         if self.tag == None: return self.value
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
     
     def __repr__(self):
+        """
+        """
         return_string = "Leaf Node \n"
         #Tag
         if self.tag == None: return_string = f"{return_string}Tag: NONE\n"
@@ -64,9 +74,13 @@ class LeafNode(HTMLNode):
     
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
+        """
+        """
         super().__init__(tag, None, children, props)
 
     def to_html(self):
+        """
+        """
         if self.tag == None: raise ValueError("No Tag on parent Node")
         if self.children == None: raise ValueError("Parent Node Children List set to None")
         return_string = f"<{self.tag}>"
@@ -76,6 +90,8 @@ class ParentNode(HTMLNode):
         return return_string
     
     def __repr__(self):
+        """
+        """
         return_string = "Parent Node \n"
         #Tag
         if self.tag == None: return_string = f"{return_string}Tag: NONE\n"

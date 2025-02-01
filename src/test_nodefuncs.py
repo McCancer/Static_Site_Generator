@@ -78,3 +78,56 @@ class TestNodeFuncs(unittest.TestCase):
         text = "This is text with a link [to boot dev](https://www.boot.dev)"
         test_list = [("to boot dev", "https://www.boot.dev")]
         self.assertEqual(extract_markdown_links(text), test_list)
+
+    def test_split_nodes_images_one(self):
+        """Single image"""
+        node = TextNode("This is text with a link ![to boot dev](https://www.boot.dev) only one.",
+                        TextType.NORMAL,
+                        )
+        test_nodes = [
+            TextNode("This is text with a link ", TextType.NORMAL),
+            TextNode("to boot dev", TextType.IMAGE, "https://www.boot.dev"),
+            TextNode(" only one.", TextType.NORMAL)
+        ]
+        self.assertEqual(split_nodes_images([node]),test_nodes)
+
+    def test_split_nodes_images_two(self):
+        """double image"""
+        node = TextNode("This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)",
+                        TextType.NORMAL,
+                        )
+        test_nodes = [
+            TextNode("This is text with a link ", TextType.NORMAL),
+            TextNode("to boot dev", TextType.IMAGE, "https://www.boot.dev"),
+            TextNode(" and ", TextType.NORMAL),
+            TextNode("to youtube", TextType.IMAGE, "https://www.youtube.com/@bootdotdev")
+        ]
+        self.assertEqual(split_nodes_images([node]),test_nodes)
+
+    def test_split_nodes_link_one(self):
+        """Single link"""
+        node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) only one.",
+                        TextType.NORMAL,
+                        )
+        test_nodes = [
+            TextNode("This is text with a link ", TextType.NORMAL),
+            TextNode("to boot dev", TextType.LINKS, "https://www.boot.dev"),
+            TextNode(" only one.", TextType.NORMAL)
+        ]
+        self.assertEqual(split_nodes_links([node]),test_nodes)
+
+    def test_split_nodes_link_two(self):
+        """Double links"""
+        node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
+                        TextType.NORMAL,
+                        )
+        test_nodes = [
+            TextNode("This is text with a link ", TextType.NORMAL),
+            TextNode("to boot dev", TextType.LINKS, "https://www.boot.dev"),
+            TextNode(" and ", TextType.NORMAL),
+            TextNode("to youtube", TextType.LINKS, "https://www.youtube.com/@bootdotdev")
+        ]
+        self.assertEqual(split_nodes_links([node]),test_nodes)
+
+if __name__ == "__main__":
+    unittest.main()
