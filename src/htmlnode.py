@@ -3,6 +3,8 @@
 class HTMLNode():
     def __init__(self, tag=None, value=None, children=None, props=None):
         '''
+        __init__ is the constructor for the HTMLNode object
+
         param: tag: A string representing the HTML tag name (e.g. "p", "a", "h1", etc.)
         param: value: A string representing the value of the HTML tag (e.g. the text inside a paragraph)
         param: children: A list of HTMLNode objects representing the children of this node
@@ -18,6 +20,9 @@ class HTMLNode():
     
     def props_to_html(self):
         """
+        props_to_html
+
+        :return:
         """
         if self.props == None: return ""
         return_string = ""
@@ -27,6 +32,7 @@ class HTMLNode():
 
     def __repr__(self):
         """
+        __repr___
         """
         return_string = "HTML Node \n"
         #Tag
@@ -46,11 +52,19 @@ class HTMLNode():
 class LeafNode(HTMLNode):
     def __init__(self, tag, value, props=None):
         """
+        __init__
+
+        :param tag: 
+        :param value:
+        :param props:
         """
         super().__init__(tag, value, props=props)
     
     def to_html(self):
         """
+        to_html
+
+        :return: 
         """
         if self.value == None: raise ValueError("All leaf nodes must have a value")
         if self.tag == None: return self.value
@@ -58,6 +72,9 @@ class LeafNode(HTMLNode):
     
     def __repr__(self):
         """
+        __repr__
+
+        :return:
         """
         return_string = "Leaf Node \n"
         #Tag
@@ -75,11 +92,15 @@ class LeafNode(HTMLNode):
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
         """
+        __init__
         """
         super().__init__(tag, None, children, props)
 
     def to_html(self):
         """
+        to_html
+
+        :return:
         """
         if self.tag == None: raise ValueError("No Tag on parent Node")
         if self.children == None: raise ValueError("Parent Node Children List set to None")
@@ -91,6 +112,9 @@ class ParentNode(HTMLNode):
     
     def __repr__(self):
         """
+        __repr__
+
+        :return:
         """
         return_string = "Parent Node \n"
         #Tag

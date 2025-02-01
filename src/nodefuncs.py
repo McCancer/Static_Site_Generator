@@ -1,9 +1,14 @@
 from textnode import TextNode, TextType
-import pdb
 import re
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     """
+    split_nodes_delimter takes a list of nodes that are normal text and returns normal text nodes and nodes of the given type in a list.
+
+    :param old_nodes: List of Nodes to split 
+    :param delimiter: Delimiter to split the text by
+    :param text_type: The Text type that goes with the delimiter
+    :return:
     """
     new_nodes = []
     for old_node in old_nodes:
@@ -23,6 +28,10 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 def extract_markdown_images(text):
     """
+    extract_markdown_image
+
+    :param text: Given text you want to regex match off of.
+    :return: returns all images in a list of tuples of alttext and url. 
     """
     altTextRegex = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
     altTextMatches = re.findall(altTextRegex, text)
@@ -32,8 +41,8 @@ def extract_markdown_links(text):
     """
     Extract_markdown_links
 
-    :param text:
-    :return: 
+    :param text: Given text you want to regex match off of.
+    :return: returns all the links in a list of tuples of alttext and url
     """
     regText = r"(?<!/!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
     linkTextMatch = re.findall(regText, text)
@@ -41,10 +50,10 @@ def extract_markdown_links(text):
 
 def split_nodes_images(oldNodes):
     """
-    split_nodes_images
+    split_nodes_images from a list of nodes it splits the images out of the text and puts the images as their own nodes
 
-    :param oldNodes:
-    :return:
+    :param oldNodes: List of Nodes you want to split
+    :return: A list of new text nodes with the new image nodes added
     """
     new_node_lst = list()
     for node in oldNodes:
@@ -69,10 +78,10 @@ def split_nodes_images(oldNodes):
 
 def split_nodes_links(oldNodes):
     """
-    split_nodes_links
+    split_nodes_links from a list of nodes it splits the links out of the text and puts the links as their own nodes
 
-    :param oldNodes:
-    :return:
+    :param oldNodes: List of Nodes you want to split
+    :return: A list of new text nodes with the new links nodes added
     """
     new_node_lst = list()
     for node in oldNodes:
@@ -94,3 +103,18 @@ def split_nodes_links(oldNodes):
         ]
         new_node_lst.extend(split_nodes_links(tempList))
     return new_node_lst
+
+def text_to_textnodes(text):
+    """
+    text_to_textnodes turns markdown text into a list of text nodes
+
+    :param text: plain text you want to turn into text nodes
+    :return: the plain text is converted into a list of text nodes
+    """
+    node_List = [TextNode(text, TextType.NORMAL)]
+    new_nodes = split_nodes_delimiter(node_List, '**', TextType.BOLD)
+    new_nodes = split_nodes_delimiter(new_nodes, '*', TextType.ITALIC)
+    new_nodes = split_nodes_delimiter(new_nodes, '`', TextType.CODE)
+    new_nodes = split_nodes_images(new_nodes)
+    new_nodes = split_nodes_links(new_nodes)
+    return new_nodes

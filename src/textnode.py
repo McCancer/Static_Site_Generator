@@ -13,6 +13,11 @@ class TextNode():
 
     def __init__(self, text, text_type, url=None):
         """
+        __init__
+
+        :param text:
+        :param text_type:
+        :param url:
         """
         self.text = text
         self.text_type = text_type
@@ -20,16 +25,27 @@ class TextNode():
     
     def __eq__(self, other_node):
         """
+        __eq__
+
+        :param other_node:
+        :return: 
         """
         return ((self.text == other_node.text) and (self.text_type == other_node.text_type) and (self.url == other_node.url))
     
     def __repr__(self):
         """
+        __repr__
+
+        :return:
         """
         return f"TextNode({self.text}, {self.text_type.name}, {self.url})"
 
 def text_node_to_html_node(text_node):
     """
+    text_node_to_html_node
+
+    :param text_node:
+    :return: 
     """
     match text_node.text_type:
         case TextType.NORMAL:

@@ -4,6 +4,7 @@ from htmlnode import HTMLNode, LeafNode, ParentNode
 class TestHTMLNode(unittest.TestCase):
     def test_propstohtmlTest_one(self):
         """
+        test_propstohtmlTest_one
         """
         test_string = ""
         node = HTMLNode()
@@ -12,6 +13,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_propstohtmlTest_two(self):
         """
+        test_propstohtmlTest_two
         """
         test_Dict = {"href":"https://www.google.com", "target":"_blank"}
         test_string = ' href="https://www.google.com" target="_blank"'
@@ -21,6 +23,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_propstohtmlTest_three(self):
         """
+        test_propstohtmlTest_three
         """
         test_Dict = {"href":"https://www.google.com"}
         test_string = ' href="https://www.google.com"'
@@ -30,6 +33,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_values(self):
         """
+        test_values
         """
         node = HTMLNode("div", "This is a div")
         self.assertEqual(node.tag, "div")
@@ -40,6 +44,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_values_two(self):
         """
+        test_values_two
         """
         node1 = LeafNode("p", "This is a paragraph of text.")
         self.assertEqual(node1.tag, 'p')
@@ -52,6 +57,7 @@ class TestHTMLNode(unittest.TestCase):
     
     def test_to_string(self):
         """
+        test_to_string
         """
         node = HTMLNode('TagTest', "TestVal", None, {"TestKey": "TestValue"})
         TestString = "HTML Node \nTag: TagTest\nValue: TestVal\nChildren: NONE\nProps: {'TestKey': 'TestValue'}"
@@ -59,6 +65,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_tohtml_one(self):
         """
+        test_tohtml_one
         """
         node = LeafNode("p", "This is a paragraph of text.")
         return_string = "<p>This is a paragraph of text.</p>"
@@ -66,6 +73,7 @@ class TestHTMLNode(unittest.TestCase):
     
     def test_tohtml_two(self):
         """
+        test_tohtml_two
         """
         node =  LeafNode("a", "Click me!", props={"href": "https://www.google.com"})
         return_string = '<a href="https://www.google.com">Click me!</a>'
@@ -73,6 +81,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_parent_tohtml_one(self):
         """
+        test_parent_tohtml_one
         """
         node = ParentNode("p",[
                             LeafNode("b", "Bold text"),
@@ -85,6 +94,7 @@ class TestHTMLNode(unittest.TestCase):
     
     def test_parent_tohtml_two(self):
         """
+        test_parent_tohtml_two
         """
         #Test a parent node in a parent node
         node1 = ParentNode("p",[LeafNode("i", "Inner1")])
@@ -98,6 +108,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_parent_tohtml_three(self):
         """
+        test_parent_tohtml_three
         """
         #Test a parent node with no children
         node = ParentNode("p",[]) 
