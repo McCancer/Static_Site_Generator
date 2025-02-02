@@ -1,22 +1,28 @@
 from textnode import TextNode, TextType
 from htmlnode import HTMLNode, ParentNode, LeafNode
 from nodefuncs import *
+from markdown_blocks import *
 
 def main():
-    node = TextNode(
-    "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-    TextType.NORMAL,
-    )
-    new_nodes = split_nodes_links([node])
-    print (new_nodes)
-# [
-#     TextNode("This is text with a link ", TextType.TEXT),
-#     TextNode("to boot dev", TextType.LINK, "https://www.boot.dev"),
-#     TextNode(" and ", TextType.TEXT),
-#     TextNode(
-#         "to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"
-#     ),
-# ]
+    teststring = '''# This is a heading
+
+This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+
+* This is the first list item in a list block
+* This is a list item
+* This is another list item
+
+```\nCode is here```
+
+>This is a quote
+
+1. Ordered 
+2. List 
+'''
+    blocks = markdown_to_blocks(teststring)
+    for block in blocks:
+        print(block)
+        print(block_to_block_type(block))
 
 if __name__ == "__main__":
     main()
