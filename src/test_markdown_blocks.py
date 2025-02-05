@@ -4,6 +4,9 @@ from markdown_blocks import *
 
 class TestMarkdownToHTML(unittest.TestCase):
     def test_markdown_to_blocks(self):
+        '''
+        
+        '''
         teststring = '''# This is a heading
 
 This is a paragraph of text. It has some **bold** and *italic* words inside of it.
@@ -17,6 +20,9 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
 
     def test_block_to_block_type(self):
+        '''
+        
+        '''
         teststring = '''# This is a heading
 
 This is a paragraph of text. It has some **bold** and *italic* words inside of it.
@@ -40,18 +46,21 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
         self.assertEqual(testlst, blocklst)
 
     def test_block_to_block_types_two(self):
+        '''
+        
+        '''
         block = "# heading"
-        self.assertEqual(block_to_block_type(block), 'heading')
+        self.assertEqual(block_to_block_type(block), block_type_heading)
         block = "```\ncode\n```"
-        self.assertEqual(block_to_block_type(block), 'code')
+        self.assertEqual(block_to_block_type(block), block_type_code)
         block = "> quote\n> more quote"
-        self.assertEqual(block_to_block_type(block), 'quote')
+        self.assertEqual(block_to_block_type(block), block_type_quote)
         block = "* list\n* items"
-        self.assertEqual(block_to_block_type(block), 'ulist')
+        self.assertEqual(block_to_block_type(block), block_type_ulist)
         block = "1. list\n2. items"
-        self.assertEqual(block_to_block_type(block), 'olist')
+        self.assertEqual(block_to_block_type(block), block_type_olist)
         block = "paragraph"
-        self.assertEqual(block_to_block_type(block), 'paragraph')
+        self.assertEqual(block_to_block_type(block), block_type_paragraph)
 
 if __name__ == "__main__":
     unittest.main()
