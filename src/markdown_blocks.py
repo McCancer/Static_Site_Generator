@@ -11,6 +11,12 @@ block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
 def extract_title(markdown):
+    '''
+    extract_title
+
+    :param markdown:
+    :return:
+    '''
     mdf = markdown.split('\n')
     title = None
     for line in mdf:
@@ -109,7 +115,11 @@ def heading_block_to_html_Node(block):
     else:
         tag = 'h1'
         block = block.strip('# ')
-    return LeafNode(tag, block)
+    text_nodes = text_to_textnodes(block)
+    childrenNodes = list()
+    for text_node in text_nodes:
+        childrenNodes.append(text_node_to_html_node(text_node))
+    return ParentNode(tag,childrenNodes)
 
 def code_block_to_html_node(block):
     '''
