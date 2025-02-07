@@ -10,6 +10,17 @@ block_type_quote = "quote"
 block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
+def extract_title(markdown):
+    mdf = markdown.split('\n')
+    title = None
+    for line in mdf:
+        cleanline = line.strip()
+        if(cleanline[0:2] == "# "):
+            title = cleanline.lstrip("# ")
+            break
+    if title == None: raise Exception("No h1 heading (title) in markdown file")
+    return title
+
 def markdown_to_blocks(markdown):
     '''
     markdown_to_blocks

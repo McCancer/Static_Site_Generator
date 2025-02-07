@@ -145,7 +145,8 @@ this is paragraph text
             "<div><blockquote>This is a blockquote block</blockquote><p>this is paragraph text</p></div>",
         )
 
-
+    def test_extract_title(self):
+        self.assertEqual(extract_title("##This is not the title\n# This is the title"),"This is the title")
 
 if __name__ == "__main__":
     unittest.main()
