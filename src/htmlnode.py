@@ -1,7 +1,7 @@
-
+from __future__ import annotations
 
 class HTMLNode():
-    def __init__(self, tag=None, value=None, children=None, props=None):
+    def __init__(self, tag:str=None, value:str=None, children:list[HTMLNode]=None, props: dict[str,str]=None) -> None:
         '''
         __init__ is the constructor for the HTMLNode object
 
@@ -18,7 +18,7 @@ class HTMLNode():
     def to_html(self):
         raise NotImplementedError()
     
-    def props_to_html(self):
+    def props_to_html(self)->str:
         """
         props_to_html
 
@@ -30,7 +30,7 @@ class HTMLNode():
             return_string = f"{return_string} {key}=\"{self.props[key]}\""
         return return_string.rstrip()
 
-    def __repr__(self):
+    def __repr__(self)->str:
         """
         __repr___
         """
@@ -50,7 +50,7 @@ class HTMLNode():
         return return_string
 
 class LeafNode(HTMLNode):
-    def __init__(self, tag, value, props=None):
+    def __init__(self, tag:str, value:str, props:dict[str,str]=None)->None:
         """
         __init__
 
@@ -60,7 +60,7 @@ class LeafNode(HTMLNode):
         """
         super().__init__(tag, value, props=props)
     
-    def to_html(self):
+    def to_html(self)->str:
         """
         to_html
 
@@ -70,7 +70,7 @@ class LeafNode(HTMLNode):
         if self.tag == None: return self.value
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
     
-    def __repr__(self):
+    def __repr__(self)->str:
         """
         __repr__
 
@@ -87,16 +87,15 @@ class LeafNode(HTMLNode):
         if self.props == None: return_string = f"{return_string}Props: NONE"
         else: return_string = f"{return_string}Props: {self.props}"
         return return_string
-
-    
+  
 class ParentNode(HTMLNode):
-    def __init__(self, tag, children, props=None):
+    def __init__(self, tag:str, children:list[HTMLNode], props:dict[str,str]=None)->None:
         """
         __init__
         """
         super().__init__(tag, None, children, props)
 
-    def to_html(self):
+    def to_html(self)->str:
         """
         to_html
 
@@ -111,7 +110,7 @@ class ParentNode(HTMLNode):
         return_string += f"</{self.tag}>"
         return return_string
     
-    def __repr__(self):
+    def __repr__(self)->str:
         """
         __repr__
 

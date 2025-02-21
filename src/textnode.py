@@ -1,5 +1,6 @@
 from htmlnode import LeafNode
 from enum import Enum 
+from __future__ import annotations
 
 class TextType(Enum):
     NORMAL = 1
@@ -11,7 +12,7 @@ class TextType(Enum):
 
 class TextNode():
 
-    def __init__(self, text, text_type, url=None):
+    def __init__(self, text:str, text_type:TextType, url:str=None):
         """
         __init__
 
@@ -23,16 +24,19 @@ class TextNode():
         self.text_type = text_type
         self.url = url
     
-    def __eq__(self, other_node):
+    def __eq__(self, other_node:TextNode)->bool:
         """
         __eq__
 
         :param other_node:
         :return: 
         """
+        if not isinstance(other_node, TextNode):
+            return NotImplemented
+
         return ((self.text == other_node.text) and (self.text_type == other_node.text_type) and (self.url == other_node.url))
     
-    def __repr__(self):
+    def __repr__(self)->str:
         """
         __repr__
 
@@ -40,7 +44,7 @@ class TextNode():
         """
         return f"TextNode({self.text}, {self.text_type.name}, {self.url})"
 
-def text_node_to_html_node(text_node):
+def text_node_to_html_node(text_node:TextNode)->LeafNode:
     """
     text_node_to_html_node
 

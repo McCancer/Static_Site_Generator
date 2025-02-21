@@ -10,7 +10,7 @@ block_type_quote = "quote"
 block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
-def extract_title(markdown):
+def extract_title(markdown:str)->str:
     '''
     extract_title
 
@@ -18,7 +18,7 @@ def extract_title(markdown):
     :return:
     '''
     mdf = markdown.split('\n')
-    title = None
+    title:str = None
     for line in mdf:
         cleanline = line.strip()
         if(cleanline[0:2] == "# "):
@@ -27,14 +27,14 @@ def extract_title(markdown):
     if title == None: raise Exception("No h1 heading (title) in markdown file")
     return title
 
-def markdown_to_blocks(markdown):
+def markdown_to_blocks(markdown:str)->list[str]:
     '''
     markdown_to_blocks
 
     :param markdown: 
     :return: 
     '''
-    blocks = list()
+    blocks:list[str] = list()
     lines = markdown.split("\n\n")
     for line in lines:
         if line == "":
@@ -43,7 +43,7 @@ def markdown_to_blocks(markdown):
         blocks.append(line)
     return blocks
 
-def block_to_block_type(block):
+def block_to_block_type(block:str)->str:
     '''
     block_to_block_type
 
@@ -62,7 +62,7 @@ def block_to_block_type(block):
     elif(len(re.findall(orderedregex, block, re.MULTILINE)) > 0): return block_type_olist
     else: return block_type_paragraph
 
-def markdown_to_html_node(markdown):
+def markdown_to_html_node(markdown:str)->ParentNode:
     '''
     markdown_to_html_node
 
@@ -89,7 +89,7 @@ def markdown_to_html_node(markdown):
             raise ValueError("Invalid type of block.")
     return ParentNode("div", children_nodes)
     
-def heading_block_to_html_Node(block):
+def heading_block_to_html_Node(block:str)->ParentNode:
     '''
     heading_block_to_html_Node Headings should be surrounded by a <h1> to <h6> tag, depending on the number of # characters
 
@@ -121,7 +121,7 @@ def heading_block_to_html_Node(block):
         childrenNodes.append(text_node_to_html_node(text_node))
     return ParentNode(tag,childrenNodes)
 
-def code_block_to_html_node(block):
+def code_block_to_html_node(block:str)->ParentNode:
     '''
     code_block_to_html_node Code blocks should be surrounded by a <code> tag nested inside a <pre> tag.
 
@@ -134,7 +134,7 @@ def code_block_to_html_node(block):
         children_nodes.append(text_node_to_html_node(text_node))
     return ParentNode('pre', children_nodes)
 
-def quote_block_to_html_node(block):
+def quote_block_to_html_node(block:str)->ParentNode:
     '''
     quote_block_to_html_no Quote blocks should be surrounded by a <blockquote> tag.
 
@@ -152,7 +152,7 @@ def quote_block_to_html_node(block):
         children_nodes.append(text_node_to_html_node(text_node))
     return ParentNode('blockquote', children_nodes)
 
-def ulist_block_to_html_node(block):
+def ulist_block_to_html_node(block:str)->ParentNode:
     '''
     ulist_block_to_html_node
 
@@ -169,7 +169,7 @@ def ulist_block_to_html_node(block):
         children_nodes.append(ParentNode('li', sub_children_nodes))
     return ParentNode('ul', children_nodes)
 
-def olist_block_to_html_node(block):
+def olist_block_to_html_node(block:str)->ParentNode:
     '''
     olist_block_to_html_node Ordered list blocks should be surrounded by a <ol> tag, and each list item should be surrounded by a <li> tag.
 
@@ -186,7 +186,7 @@ def olist_block_to_html_node(block):
         children_nodes.append(ParentNode('li', sub_children_nodes))
     return ParentNode('ol', children_nodes)
 
-def paragraph_block_to_html_node(block):
+def paragraph_block_to_html_node(block:str)->ParentNode:
     '''
     paragraph_block_to_html_node
 

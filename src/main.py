@@ -9,7 +9,7 @@ def main():
     copy_static('static','public')
     generate_pages_recursive('content','template.html','public')
     
-def copy_static(src, destination):
+def copy_static(src:str, destination:str):
     '''
     copy_static
 
@@ -29,7 +29,7 @@ def copy_static(src, destination):
         else:
             copy_static(os.path.join(src, item), os.path.join(destination, item))
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path:str, template_path:str, dest_path:str):
     '''
     generate_page
 
@@ -61,7 +61,7 @@ def generate_page(from_path, template_path, dest_path):
     final_html.write(template_html)
     final_html.close()
 
-def generate_pages_recursive(src_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(src_path_content:str, template_path:str, dest_dir_path:str):
     '''
     generate_pages_recursive
 

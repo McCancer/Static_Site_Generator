@@ -1,7 +1,7 @@
 from textnode import TextNode, TextType
 import re
 
-def split_nodes_delimiter(old_nodes, delimiter, text_type):
+def split_nodes_delimiter(old_nodes: list[TextNode], delimiter:str, text_type: TextType)-> list[TextNode]:
     """
     split_nodes_delimter takes a list of nodes that are normal text and returns normal text nodes and nodes of the given type in a list.
 
@@ -26,7 +26,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                 new_nodes.append(TextNode(text_split[i], text_type))
     return new_nodes
 
-def extract_markdown_images(text):
+def extract_markdown_images(text:str)->list[tuple[str,str]]:
     """
     extract_markdown_image
 
@@ -37,7 +37,7 @@ def extract_markdown_images(text):
     altTextMatches = re.findall(altTextRegex, text)
     return altTextMatches
 
-def extract_markdown_links(text):
+def extract_markdown_links(text:str)->list[tuple[str,str]]:
     """
     Extract_markdown_links
 
@@ -48,7 +48,7 @@ def extract_markdown_links(text):
     linkTextMatch = re.findall(regText, text)
     return linkTextMatch
 
-def split_nodes_images(oldNodes):
+def split_nodes_images(oldNodes:list[TextNode])->list[TextNode]:
     """
     split_nodes_images from a list of nodes it splits the images out of the text and puts the images as their own nodes
 
@@ -76,7 +76,7 @@ def split_nodes_images(oldNodes):
         new_node_lst.extend(split_nodes_images(tempList))
     return new_node_lst
 
-def split_nodes_links(oldNodes):
+def split_nodes_links(oldNodes:list[TextNode])->list[TextNode]:
     """
     split_nodes_links from a list of nodes it splits the links out of the text and puts the links as their own nodes
 
@@ -104,7 +104,7 @@ def split_nodes_links(oldNodes):
         new_node_lst.extend(split_nodes_links(tempList))
     return new_node_lst
 
-def text_to_textnodes(text):
+def text_to_textnodes(text:str)->list[TextNode]:
     """
     text_to_textnodes turns markdown text into a list of text nodes
 
