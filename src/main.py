@@ -1,13 +1,17 @@
 import os
 import shutil
+import sys
 from textnode import TextNode, TextType
 from htmlnode import HTMLNode, ParentNode, LeafNode
 from nodefuncs import *
 from markdown_blocks import *
 
 def main():
-    copy_static('static','public')
-    generate_pages_recursive('content','template.html','public')
+    basepath = "/"
+    if sys.argv[1] is not None:
+        basepath = sys.argv[1]
+    copy_static('static','docs')
+    generate_pages_recursive('content','template.html','docs',basepath)
     
 def copy_static(src:str, destination:str):
     '''
@@ -29,7 +33,7 @@ def copy_static(src:str, destination:str):
         else:
             copy_static(os.path.join(src, item), os.path.join(destination, item))
 
-def generate_page(from_path:str, template_path:str, dest_path:str):
+def generate_page(from_path:str, template_path:str, dest_path:str, basepath:str):
     '''
     generate_page
 
@@ -56,12 +60,14 @@ def generate_page(from_path:str, template_path:str, dest_path:str):
     #Replace place holders in templates
     template_html = template_html.replace("{{ Title }}", FileTitle)
     template_html = template_html.replace("{{ Content }}", src_html)
+    template_html = template_html.replace('href="/', f'href="{basepath}')
+    template_html = template_html.replace('src="/', f'src="{basepath}')
     #Write Final File
     final_html = open(dest_path, 'w')
     final_html.write(template_html)
     final_html.close()
 
-def generate_pages_recursive(src_path_content:str, template_path:str, dest_dir_path:str):
+def generate_pages_recursive(src_path_content:str, template_path:str, dest_dir_path:str, basepath:str):
     '''
     generate_pages_recursive
 
@@ -78,10 +84,10 @@ def generate_pages_recursive(src_path_content:str, template_path:str, dest_dir_p
         if(os.path.isfile(new_src_path)):
             base, ext = os.path.splitext(item)
             new_dest_path = os.path.join(dest_dir_path, f"{base}.html")
-            generate_page(new_src_path, template_path, new_dest_path)
+            generate_page(new_src_path, template_path, new_dest_path, basepath)
         else: 
             new_dest_path = os.path.join(dest_dir_path, item)
-            generate_pages_recursive(new_src_path,template_path,new_dest_path)
+            generate_pages_recursive(new_src_path,template_path,new_dest_path, basepath)
 
 if __name__ == "__main__":
     main()
