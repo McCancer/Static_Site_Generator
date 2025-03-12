@@ -113,7 +113,7 @@ def text_to_textnodes(text:str)->list[TextNode]:
     """
     node_List = [TextNode(text, TextType.NORMAL)]
     new_nodes = split_nodes_delimiter(node_List, '**', TextType.BOLD)
-    new_nodes = split_nodes_delimiter(new_nodes, '*', TextType.ITALIC)
+    new_nodes = split_nodes_delimiter(new_nodes, '_', TextType.ITALIC)
     new_nodes = split_nodes_delimiter(new_nodes, '`', TextType.CODE)
     new_nodes = split_nodes_images(new_nodes)
     new_nodes = split_nodes_links(new_nodes)

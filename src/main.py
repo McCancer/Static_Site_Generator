@@ -8,7 +8,7 @@ from markdown_blocks import *
 
 def main():
     basepath = "/"
-    if sys.argv[1] is not None:
+    if len(sys.argv)-1 == 1:
         basepath = sys.argv[1]
     copy_static('static','docs')
     generate_pages_recursive('content','template.html','docs',basepath)
