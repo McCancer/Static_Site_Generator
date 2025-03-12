@@ -1,6 +1,6 @@
+from __future__ import annotations
 from htmlnode import LeafNode
 from enum import Enum 
-from __future__ import annotations
 
 class TextType(Enum):
     NORMAL = 1
